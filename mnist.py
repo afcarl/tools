@@ -17,7 +17,7 @@ def load_mnist_image_data(path):
     data = f.read(width * height * nb_images)
 
     images = np.fromstring(data, dtype = np.uint8)
-    images.shape = (nb_images, height, width)
+    images.shape = (nb_images, 1, height, width)
 
     return images
 
