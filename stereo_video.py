@@ -6,8 +6,8 @@ import numpy as np
 
 def sbs_to_pair(img, downsample_factor):
     h, w, _ = img.shape
-    nh = h / 2**downsample_factor
-    nw = w / 2**downsample_factor
+    nh =  9 * 2 ** downsample_factor
+    nw = 16 * 2 ** downsample_factor
     left  = cv2.resize(img[:,:w/2,:], (nw, nh), interpolation=cv.CV_INTER_AREA)
     right = cv2.resize(img[:,w/2:,:], (nw, nh), interpolation=cv.CV_INTER_AREA)
     return [left, right]
@@ -45,5 +45,5 @@ def load_all_videos(path, nb_videos, stride, downsample_factor, max_frames):
         if (i != 0 and i % 10 == 0):
             print str(i) + " done."
 
-    print str(nb_videos - 1) + "done."
+    print str(nb_videos - 1) + " done."
     return lefts, rights
