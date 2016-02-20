@@ -20,15 +20,15 @@ def load_stereo_video(path, video_id, stride, downsample_factor, max_frames):
 
     left  = []
     right = []
-    while(cap.isOpened() and len(left) < max_frames):
+
+    for i in range(max_frames):
+        cap.set(cv.CV_CAP_PROP_POS_FRAMES, stride * i)
+
         ret, frame = cap.read()
 
-        i = cap.get(cv.CV_CAP_PROP_POS_FRAMES)
-
-        if (ret and i % stride == 0):
-            pair = sbs_to_pair(cv2.cvtColor(frame.astype(np.float32) / 255.0, cv.CV_BGR2Lab), downsample_factor)
-            left.append( pair[0])
-            right.append(pair[1])
+        pair = sbs_to_pair(cv2.cvtColor(frame.astype(np.float32) / 255.0, cv.CV_BGR2Lab), downsample_factor)
+        left.append( pair[0])
+        right.append(pair[1])
 
     cap.release()
 
